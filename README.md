@@ -61,4 +61,4 @@ A estrutura do projeto foi pensada não só para impressionar o cliente final pe
 - As tags Open Graph (`og:image`, `og:title`) renderizam visualizações atrativas ao compartilhar o site no WhatsApp e Facebook.
 
 ---
-**Desenvolvido por [CTR NEXUS](https://www.ctrnexus.com)** | CNPJ: 63.203.758/0001-47
+**Desenvolvido por [CTR NEXUS](https://www.ctrnexus.com)** | CNPJ: 67.849.747/0001-90
