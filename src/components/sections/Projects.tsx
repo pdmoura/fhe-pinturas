@@ -4,10 +4,10 @@ import Autoplay from "embla-carousel-autoplay";
 import { WaveDivider } from "@/components/ui/dividers";
 import { WHATSAPP_URL } from "@/lib/constants";
 
-import projetoPainelUrl from "@/assets/projeto-painel.jpeg";
-import projetoMarmoratoUrl from "@/assets/projeto-marmorato.jpeg";
-import projetoExtraUrl from "@/assets/projeto-extra.png";
-import tintaDireitaUrl from "@/assets/tinta-direita.png";
+import projetoPainelUrl from "@/assets/projeto-painel.webp";
+import projetoMarmoratoUrl from "@/assets/projeto-marmorato.webp";
+import projetoExtraUrl from "@/assets/projeto-extra.webp";
+import tintaDireitaUrl from "@/assets/tinta-direita.webp";
 
 const projects = [
   { src: projetoMarmoratoUrl, title: "Marmorato em sala de estar" },

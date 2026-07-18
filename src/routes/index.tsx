@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import logoUrl from "@/assets/logo-fhe.png";
+import logoUrl from "@/assets/logo-fhe.webp";
 import { WHATSAPP_URL } from "@/lib/constants";
 import { WhatsAppIcon } from "@/components/ui/icons";
 
@@ -142,6 +142,8 @@ function useDesktopSnapAssist() {
   useEffect(() => {
     let isAnimating = false;
     let accumulatedDelta = 0;
+    let cachedSections: Element[] = [];
+    let cachedRects: DOMRect[] = [];
     
     const handleWheel = (e: WheelEvent) => {
       if (window.innerWidth < 1024) return;
@@ -156,14 +158,19 @@ function useDesktopSnapAssist() {
       
       const direction = e.deltaY > 0 ? 1 : -1;
       
-      const sections = Array.from(document.querySelectorAll('section, footer'));
+      if (accumulatedDelta === 0) {
+        cachedSections = Array.from(document.querySelectorAll('section, footer'));
+        cachedRects = cachedSections.map(sec => sec.getBoundingClientRect());
+      }
+      
+      const sections = cachedSections;
       if (sections.length < 2) return;
         
       let closestSection = sections[0];
       let minDistance = Infinity;
       
-      sections.forEach(sec => {
-        const rect = sec.getBoundingClientRect();
+      sections.forEach((sec, idx) => {
+        const rect = cachedRects[idx];
         const distance = Math.abs(rect.top - 96);
         if (distance < minDistance) {
           minDistance = distance;
@@ -176,7 +183,7 @@ function useDesktopSnapAssist() {
       const isFooter = currentIndex === sections.length - 1;
       
       const contatoSection = sections[sections.length - 2];
-      const contatoTop = contatoSection ? contatoSection.getBoundingClientRect().top : 0;
+      const contatoTop = cachedRects[sections.length - 2] ? cachedRects[sections.length - 2].top : 0;
       const isAtTopOfContato = contatoTop >= 80 && contatoTop <= 110;
       
       if (isFooter || (isContato && direction > 0) || (isContato && direction < 0 && !isAtTopOfContato)) {
@@ -197,6 +204,7 @@ function useDesktopSnapAssist() {
         
         const nextSection = sections[nextIndex];
         if (nextSection && currentIndex !== nextIndex) {
+          // Re-calculate the actual target offset just before scrolling to ensure accuracy
           const top = nextSection.getBoundingClientRect().top + window.scrollY - 96;
           window.scrollTo({
             top,
@@ -205,6 +213,10 @@ function useDesktopSnapAssist() {
         } else {
           window.scrollBy({ top: direction * 100, behavior: 'smooth' });
         }
+        
+        // Reset cache
+        cachedSections = [];
+        cachedRects = [];
         
         setTimeout(() => {
           isAnimating = false;

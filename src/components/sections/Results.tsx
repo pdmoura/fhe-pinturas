@@ -3,8 +3,8 @@ import { WaveDivider } from "@/components/ui/dividers";
 import { WHATSAPP_URL } from "@/lib/constants";
 import { WhatsAppIcon } from "@/components/ui/icons";
 
-import antesUrl from "@/assets/antes.png";
-import depoisUrl from "@/assets/depois.png";
+import antesUrl from "@/assets/antes.webp";
+import depoisUrl from "@/assets/depois.webp";
 
 function BeforeAfterSection() {
   const [pos, setPos] = useState(50);

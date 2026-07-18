@@ -1,7 +1,7 @@
 import { WaveDivider } from "@/components/ui/dividers";
 import { WHATSAPP_URL } from "@/lib/constants";
 import { WhatsAppIcon } from "@/components/ui/icons";
-import tintaEsquerdaUrl from "@/assets/tinta-esquerda.png";
+import tintaEsquerdaUrl from "@/assets/tinta-esquerda.webp";
 
 const trustFeatures = [
   {

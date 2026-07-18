@@ -1,6 +1,6 @@
 import { InstagramIcon, WhatsAppIcon } from "@/components/ui/icons";
 import { WHATSAPP_URL } from "@/lib/constants";
-import logoUrl from "@/assets/logo-fhe.png";
+import logoUrl from "@/assets/logo-fhe.webp";
 
 export function Footer() {
   return (

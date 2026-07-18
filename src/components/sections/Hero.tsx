@@ -1,4 +1,4 @@
-import heroUrl from "@/assets/hero-fhe.png";
+import heroUrl from "@/assets/hero-fhe.webp";
 import { WHATSAPP_URL } from "@/lib/constants";
 import { WhatsAppIcon } from "@/components/ui/icons";
 import { WaveDivider } from "@/components/ui/dividers";
@@ -125,6 +125,7 @@ export function Hero() {
                 alt="Logo FHE Pinturas em Geral aplicada em parede com acabamento profissional por Pintor em Formosa GO"
                 className="relative w-full rounded-2xl object-cover shadow-[var(--shadow-elegant)] animate-float-slow"
                 loading="eager"
+                fetchPriority="high"
               />
               <svg aria-hidden="true" viewBox="0 0 200 200" className="absolute -right-6 -top-6 h-24 w-24 text-[#539D32]">
                 <path d="M20,100 Q60,20 100,100 T180,100" stroke="currentColor" strokeWidth="6" fill="none" strokeLinecap="round" strokeDasharray="400" style={{ ["--dash" as string]: 400 }} className="animate-brush-draw" />
