@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+      :root {
+        --verde-floresta: #0B3C1A;
+        --verde-folha: #539D32;
+        --verde-whatsapp: #25D366;
+      }
+
+      body {
+        margin:0;
+        padding:0;
+        width:100%;
+        height:100vh;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        background: transparent;
+        overflow: hidden;
+      }
+
+      .container {
+        position: relative;
+        width: 90vw;
+        height: 90vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-evenly;
+        border-radius: 9px;
+      }
+
+      #svg-stage {
+        width:80%;
+        max-width:750px;
+        overflow:visible;
+      }
+    </style>
+</head>
+<body>
+    <div class="container">
+      <svg id="svg-stage" xmlns="http://www.w3.org/2000/svg" viewBox="-40 -180 1250 1100" opacity="0">
+        <path class="mp" fill="none" stroke="url(#grad)" stroke-width="4" d="M-92 17.713c154.32 237.253 348.7 486.913 585.407 466.93 137.542-17.257 247.733-123.595 279.259-239.307 27.368-100.43-21.323-229.59-140.017-241.76-118.693-12.172-208.268 98.897-231.122 199.803-34.673 151.333 12.324 312.301 125.096 429.074C639.395 749.225 815.268 819.528 995 819"/>
+        
+        <g class="plane">
+          <path fill="url(#grad)" opacity="0.3" d="m82.8 35 215.9 94.6L79 92l3.8-57Z"/>
+          <path fill="url(#grad)" d="m82.8 35 52-23.5 163.9 118.1-216-94.5Z"/>
+          <path fill="url(#grad)" opacity="0.3" d="m76.8 107.1 214.4 19.6L74.7 131l2.1-23.9Z"/>
+          <path fill="url(#grad)" d="M298.8 130.4 1.9 103.3l54-45 242.9 72.1Z"/>
+        </g>
+        
+        <defs>
+          <linearGradient id="grad" x1="154" x2="160" y1="49" y2="132" gradientUnits="userSpaceOnUse">
+            <stop offset="0" stop-color="var(--verde-whatsapp)"></stop>
+            <stop offset="1" stop-color="var(--verde-folha)"></stop>
+          </linearGradient>
+        </defs>
+      </svg>
+    </div>
+
+    <!-- Import GSAP and MotionPathPlugin -->
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/MotionPathPlugin.min.js"></script>
+
+    <script>
+      // Register GSAP plugins
+      gsap.registerPlugin(MotionPathPlugin);
+
+      const mp = document.querySelector(".mp");
+      const length = mp.getTotalLength();
+
+      // Proxy object for animating standard SVG stroke-dasharray and stroke-dashoffset
+      // This replicates the DrawSVG plugin's drawing behavior
+      const drawState = { start: 0, end: 0 };
+
+      function updatePath() {
+        const startVal = (drawState.start / 100) * length;
+        const endVal = (drawState.end / 100) * length;
+        mp.style.strokeDasharray = `${endVal - startVal} ${length}`;
+        mp.style.strokeDashoffset = `${-startVal}`;
+      }
+
+      // Initial state
+      updatePath();
+
+      const tl = gsap.timeline({ repeat: -1, defaults: { ease: "power2.inOut" } });
+
+      tl.fromTo(".plane", {
+          scale: 0.6
+        }, {
+          duration: 4,
+          scale: 1.2,
+          motionPath: {
+            path: ".mp",
+            align: ".mp",
+            alignOrigin: [0.5, 0.5],
+            autoRotate: true
+          }
+        }, 0)
+        .to("#svg-stage", { duration: 0.7, opacity: 1 }, 0.25)
+        // Animate path drawing from 0% to 100%
+        .fromTo(drawState, { start: 0, end: 0 }, { duration: 3.8, start: 0, end: 100, onUpdate: updatePath }, 0.28)
+        // Animate path to collapse to 94% (replicating drawSVG: "94% 94%")
+        .to(drawState, { duration: 2, start: 94, end: 94, onUpdate: updatePath, ease: "power2" }, "-=2")
+        .to("#svg-stage", { duration: 0.7, opacity: 0 }, "-=0.9");
+    </script>
+</body>
+</html>
