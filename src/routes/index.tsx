@@ -1,18 +1,22 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { useEffect, useState, lazy, Suspense } from "react";
 import logoUrl from "@/assets/logo-fhe.webp";
+import logoSmUrl from "@/assets/logo-fhe-sm.webp";
 import { WHATSAPP_URL } from "@/lib/constants";
 import { WhatsAppIcon } from "@/components/ui/icons";
 
-// Sections
+// Above-the-fold sections (eagerly loaded)
 import { Hero } from "@/components/sections/Hero";
 import { Services } from "@/components/sections/Services";
-import { Projects, Lightbox } from "@/components/sections/Projects";
-import { Results } from "@/components/sections/Results";
-import { Trust } from "@/components/sections/Trust";
-import { FAQ } from "@/components/sections/FAQ";
-import { ContactCTA } from "@/components/sections/ContactCTA";
-import { Footer } from "@/components/sections/Footer";
+
+// Below-the-fold sections (lazy-loaded to reduce initial JS bundle)
+const Projects = lazy(() => import("@/components/sections/Projects").then(m => ({ default: m.Projects })));
+const Lightbox = lazy(() => import("@/components/sections/Projects").then(m => ({ default: m.Lightbox })));
+const Results = lazy(() => import("@/components/sections/Results").then(m => ({ default: m.Results })));
+const Trust = lazy(() => import("@/components/sections/Trust").then(m => ({ default: m.Trust })));
+const FAQ = lazy(() => import("@/components/sections/FAQ").then(m => ({ default: m.FAQ })));
+const ContactCTA = lazy(() => import("@/components/sections/ContactCTA").then(m => ({ default: m.ContactCTA })));
+const Footer = lazy(() => import("@/components/sections/Footer").then(m => ({ default: m.Footer })));
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -63,6 +67,8 @@ function SiteHeader() {
           <a href="#top" aria-label="FHE Pinturas - Página Inicial" className="flex items-center">
             <img
               src={logoUrl}
+              srcSet={`${logoSmUrl} 180w, ${logoUrl} 350w`}
+              sizes="(max-width: 640px) 140px, 168px"
               alt="FHE Pinturas em Geral"
               className={`h-20 w-auto transition-all duration-300 sm:h-24 ${open ? "brightness-0 invert" : ""}`}
             />
@@ -305,15 +311,19 @@ function Index() {
       <main id="top" className="pt-20 sm:pt-24">
         <Hero />
         <Services />
-        <Projects onImageClick={setSelectedProject} />
-        <Results />
-        <Trust />
-        <FAQ />
-        <ContactCTA />
+        <Suspense>
+          <Projects onImageClick={setSelectedProject} />
+          <Results />
+          <Trust />
+          <FAQ />
+          <ContactCTA />
+        </Suspense>
       </main>
 
-      <Lightbox project={selectedProject} onClose={() => setSelectedProject(null)} />
-      <Footer />
+      <Suspense>
+        <Lightbox project={selectedProject} onClose={() => setSelectedProject(null)} />
+        <Footer />
+      </Suspense>
       <FloatingActions />
     </div>
   );

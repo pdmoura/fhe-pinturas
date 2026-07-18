@@ -8,6 +8,7 @@ import projetoPainelUrl from "@/assets/projeto-painel.webp";
 import projetoMarmoratoUrl from "@/assets/projeto-marmorato.webp";
 import projetoExtraUrl from "@/assets/projeto-extra.webp";
 import tintaDireitaUrl from "@/assets/tinta-direita.webp";
+import tintaDireitaSmUrl from "@/assets/tinta-direita-sm.webp";
 
 const projects = [
   { src: projetoMarmoratoUrl, title: "Marmorato em sala de estar" },
@@ -96,7 +97,7 @@ export function Projects({ onImageClick }: { onImageClick: (p: any) => void }) {
   return (
     <section id="projetos" className="relative overflow-hidden bg-[#F8FAFC] pt-20 sm:pt-28 flex flex-col lg:min-h-[100dvh]">
       {/* Splash direita */}
-      <img src={tintaDireitaUrl} alt="" className="pointer-events-none absolute right-0 top-0 w-48 opacity-80 mix-blend-multiply sm:w-64 md:w-80 lg:w-96" aria-hidden="true" />
+      <img src={tintaDireitaUrl} srcSet={`${tintaDireitaSmUrl} 240w, ${tintaDireitaUrl} 612w`} sizes="(max-width: 640px) 192px, (max-width: 1024px) 320px, 384px" alt="" className="pointer-events-none absolute right-0 top-0 w-48 opacity-80 mix-blend-multiply sm:w-64 md:w-80 lg:w-96" aria-hidden="true" loading="lazy" />
       <div className="flex-1 flex flex-col justify-center w-full overflow-hidden pb-12 sm:pb-16 relative z-10">
         <div className="mx-auto max-w-[1400px] px-4 sm:px-6 w-full">
           <div className="reveal flex flex-wrap items-end justify-between gap-4">

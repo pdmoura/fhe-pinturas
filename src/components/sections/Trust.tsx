@@ -2,6 +2,7 @@ import { WaveDivider } from "@/components/ui/dividers";
 import { WHATSAPP_URL } from "@/lib/constants";
 import { WhatsAppIcon } from "@/components/ui/icons";
 import tintaEsquerdaUrl from "@/assets/tinta-esquerda.webp";
+import tintaEsquerdaSmUrl from "@/assets/tinta-esquerda-sm.webp";
 
 const trustFeatures = [
   {
@@ -46,7 +47,7 @@ export function Trust() {
   return (
     <section id="sobre" className="relative overflow-hidden bg-[#F8FAFC] pt-20 sm:pt-28 flex flex-col lg:min-h-[100dvh]" aria-labelledby="trust-title">
       {/* Splash esquerda */}
-      <img src={tintaEsquerdaUrl} alt="" className="pointer-events-none absolute left-0 -top-4 w-40 opacity-80 mix-blend-multiply sm:-top-2 sm:w-48 md:-top-4 md:w-56 lg:w-72 xl:w-80" aria-hidden="true" />
+      <img src={tintaEsquerdaUrl} srcSet={`${tintaEsquerdaSmUrl} 200w, ${tintaEsquerdaUrl} 612w`} sizes="(max-width: 640px) 160px, (max-width: 1024px) 224px, 320px" alt="" className="pointer-events-none absolute left-0 -top-4 w-40 opacity-80 mix-blend-multiply sm:-top-2 sm:w-48 md:-top-4 md:w-56 lg:w-72 xl:w-80" aria-hidden="true" loading="lazy" />
       
       {/* Multi-wave divider at top (from gallery → trust in index.html) */}
       <div className="pointer-events-none absolute inset-0 opacity-[0.04]">

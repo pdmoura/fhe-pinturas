@@ -1,13 +1,14 @@
 import { InstagramIcon, WhatsAppIcon } from "@/components/ui/icons";
 import { WHATSAPP_URL } from "@/lib/constants";
 import logoUrl from "@/assets/logo-fhe.webp";
+import logoSmUrl from "@/assets/logo-fhe-sm.webp";
 
 export function Footer() {
   return (
     <footer className="relative bg-[#051A0B] pt-16 text-white/80">
       <div className="mx-auto grid max-w-[1400px] gap-10 px-4 pb-10 sm:px-6 md:grid-cols-4 text-center md:text-left">
         <div className="md:col-span-1 flex flex-col items-center md:items-start">
-          <img src={logoUrl} alt="FHE Pinturas em Geral" className="h-20 w-auto brightness-0 invert sm:h-24" />
+          <img src={logoUrl} srcSet={`${logoSmUrl} 180w, ${logoUrl} 350w`} sizes="(max-width: 640px) 140px, 168px" alt="FHE Pinturas em Geral" className="h-20 w-auto brightness-0 invert sm:h-24" loading="lazy" />
           <p className="mt-4 text-sm leading-relaxed text-white/70">
             Pintura profissional e acabamentos premium em Formosa, Goiás e região.
           </p>

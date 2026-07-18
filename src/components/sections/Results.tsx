@@ -5,6 +5,8 @@ import { WhatsAppIcon } from "@/components/ui/icons";
 
 import antesUrl from "@/assets/antes.webp";
 import depoisUrl from "@/assets/depois.webp";
+import antesSmUrl from "@/assets/antes-sm.webp";
+import depoisSmUrl from "@/assets/depois-sm.webp";
 
 function BeforeAfterSection() {
   const [pos, setPos] = useState(50);
@@ -51,10 +53,10 @@ function BeforeAfterSection() {
         className="relative mx-auto mt-10 aspect-[16/10] md:aspect-[21/9] w-full max-w-5xl xl:max-w-6xl select-none overflow-hidden rounded-2xl shadow-[var(--shadow-elegant)] touch-none"
       >
         {/* Depois (base) */}
-        <img src={depoisUrl} alt="Ambiente depois da pintura profissional FHE Pinturas" className="pointer-events-none absolute inset-0 h-full w-full object-cover" draggable={false} />
+        <img src={depoisUrl} srcSet={`${depoisSmUrl} 512w, ${depoisUrl} 1286w`} sizes="(max-width: 768px) 100vw, 960px" alt="Ambiente depois da pintura profissional FHE Pinturas" className="pointer-events-none absolute inset-0 h-full w-full object-cover" draggable={false} />
         {/* Antes (clipped) */}
         <div className="pointer-events-none absolute inset-0 overflow-hidden" style={{ clipPath: `inset(0 ${100 - pos}% 0 0)` }}>
-          <img src={antesUrl} alt="Ambiente antes da pintura, com paredes desgastadas" className="absolute inset-0 h-full w-full object-cover" draggable={false} />
+          <img src={antesUrl} srcSet={`${antesSmUrl} 512w, ${antesUrl} 1286w`} sizes="(max-width: 768px) 100vw, 960px" alt="Ambiente antes da pintura, com paredes desgastadas" className="absolute inset-0 h-full w-full object-cover" draggable={false} />
         </div>
 
         {/* Labels */}

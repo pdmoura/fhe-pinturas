@@ -2,10 +2,11 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 import { TanStackRouterVite } from "@tanstack/router-plugin/vite";
+import cssInjectedByJsPlugin from "vite-plugin-css-injected-by-js";
 import { resolve } from "path";
 
 export default defineConfig({
-  plugins: [TanStackRouterVite(), react(), tailwindcss()],
+  plugins: [TanStackRouterVite(), react(), tailwindcss(), cssInjectedByJsPlugin()],
   resolve: {
     alias: { "@": resolve(__dirname, "./src") },
   },
