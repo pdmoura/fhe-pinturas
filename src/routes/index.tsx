@@ -118,10 +118,12 @@ function SiteHeader() {
             key={l.href}
             href={l.href}
             onClick={() => setOpen(false)}
-            className={`w-full max-w-xs rounded-lg px-5 py-3 text-center font-display text-2xl font-bold text-white transition-all hover:bg-white/10 hover:text-[#539D32] ${
+            className={`w-full max-w-xs rounded-lg px-5 py-3 text-center font-display text-2xl font-bold text-white hover:bg-white/10 hover:text-[#539D32] ${
               open ? "translate-x-0 opacity-100" : "translate-x-10 opacity-0"
             }`}
-            style={{ transitionDelay: open ? `${100 + i * 50}ms` : "0ms" }}
+            style={{ 
+              transition: `transform 500ms ease ${open ? 100 + i * 50 : 0}ms, opacity 500ms ease ${open ? 100 + i * 50 : 0}ms, background-color 200ms ease, color 200ms ease`
+            }}
           >
             {l.label}
           </a>
@@ -131,10 +133,12 @@ function SiteHeader() {
           target="_blank"
           rel="noopener noreferrer"
           onClick={() => setOpen(false)}
-          className={`mt-6 inline-flex items-center gap-2 rounded-full bg-[#539D32] px-10 py-4 text-lg font-bold text-white shadow-xl transition-all hover:bg-[#25D366] ${
+          className={`mt-6 inline-flex items-center gap-2 rounded-full bg-[#539D32] px-10 py-4 text-lg font-bold text-white shadow-xl hover:bg-[#25D366] ${
             open ? "translate-y-0 opacity-100" : "translate-y-5 opacity-0"
           }`}
-          style={{ transitionDelay: open ? "350ms" : "0ms" }}
+          style={{ 
+            transition: `transform 500ms ease ${open ? 350 : 0}ms, opacity 500ms ease ${open ? 350 : 0}ms, background-color 200ms ease, color 200ms ease`
+          }}
         >
           <WhatsAppIcon className="h-5 w-5" />
           Solicitar Orçamento
