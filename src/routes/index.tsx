@@ -237,11 +237,11 @@ function useDesktopSnapAssist() {
 
 function useScrollReveal() {
   useEffect(() => {
-    const els = document.querySelectorAll<HTMLElement>(".reveal");
     if (!("IntersectionObserver" in window)) {
-      els.forEach((el) => el.classList.add("visible"));
+      document.querySelectorAll<HTMLElement>(".reveal").forEach((el) => el.classList.add("visible"));
       return;
     }
+
     const io = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -253,8 +253,28 @@ function useScrollReveal() {
       },
       { threshold: 0.1, rootMargin: "0px 0px -50px 0px" },
     );
-    els.forEach((el) => io.observe(el));
-    return () => io.disconnect();
+
+    const observeElements = () => {
+      document.querySelectorAll<HTMLElement>(".reveal:not(.visible)").forEach((el) => {
+        // avoid observing multiple times if already tracked
+        if (!el.hasAttribute("data-revealed")) {
+          el.setAttribute("data-revealed", "true");
+          io.observe(el);
+        }
+      });
+    };
+
+    // Initial observation
+    observeElements();
+
+    // Observe future DOM changes (e.g., from React.lazy / Suspense)
+    const observer = new MutationObserver(() => observeElements());
+    observer.observe(document.body, { childList: true, subtree: true });
+
+    return () => {
+      io.disconnect();
+      observer.disconnect();
+    };
   }, []);
 }
 
