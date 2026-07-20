@@ -2,7 +2,7 @@
 
 A landing page profissional e moderna da **FHE Pinturas**, focada em serviços de pintura e acabamentos de alto padrão em Formosa, Goiás. O projeto foi construído para entregar máxima performance, um design premium e um SEO perfeitamente otimizado para liderar as buscas locais.
 
-**URL do Projeto:** [https://fhepinturas.vercel.app](https://fhepinturas.vercel.app)
+**URL do Projeto:** [https://www.fhepinturas.com](https://www.fhepinturas.com)
 
 ## 🚀 Tecnologias e Ferramentas
 

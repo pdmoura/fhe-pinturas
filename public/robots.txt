@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://fhepinturas.vercel.app/sitemap.xml
+Sitemap: https://www.fhepinturas.com/sitemap.xml
